@@ -26,3 +26,6 @@ Route::resource('producto', 'ProductoController');
 Route::resource('proveedor', 'ProveedorController');
 
 Route::resource('rol', 'RolController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
