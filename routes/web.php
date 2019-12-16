@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('asesor', 'AsesorController');
+
+Route::resource('local', 'LocalController');
+
+Route::resource('movimiento', 'MovimientoController');
+
+Route::resource('producto', 'ProductoController');
+
+Route::resource('proveedor', 'ProveedorController');
+
+Route::resource('rol', 'RolController');
