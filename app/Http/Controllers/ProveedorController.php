@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use App\Proveedor;
+
 class ProveedorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,10 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $proveedores = DB::table('proveedores')
+            ->select('*')
+            ->paginate(10);
+        return view('proveedor.index', compact('proveedores'));
     }
 
     /**
@@ -34,7 +44,24 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'cedula' => 'Required',
+            'nombres' => 'Required',
+            'apellidos' => 'Required',
+            'direccion' => 'Required',
+            'telefono' => 'Required',
+            'email' => 'Required'
+        ]);
+
+        $proveedor = new Proveedor();
+        $proveedor->cedula = $request->cedula;
+        $proveedor->nombres = $request->nombres;
+        $proveedor->apellidos = $request->apellidos;
+        $proveedor->direccion = $request->direccion;
+        $proveedor->telefono = $request->telefono;
+        $proveedor->email = $request->email;
+        $proveedor->save();
+        return redirect()->route('proveedor.index')->with('status', 'guardado');
     }
 
     /**
@@ -56,7 +83,8 @@ class ProveedorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        return view('proveedor.edit', compact('proveedor'));
     }
 
     /**
@@ -68,7 +96,10 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->fill($request->all()); //necesita que los name formulario sean iguales a los campos de tabla
+        $proveedor->save();
+        return redirect()->route('proveedor.index')->with('status', 'actualizado');
     }
 
     /**
@@ -79,6 +110,8 @@ class ProveedorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id); //busque o devuelva pero no muestre error
+        $proveedor->delete();
+        return redirect()->route('proveedor.index')->with('status', 'eliminado');
     }
 }

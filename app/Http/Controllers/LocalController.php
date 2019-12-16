@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use App\Local;
+
 class LocalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,10 @@ class LocalController extends Controller
      */
     public function index()
     {
-        //
+        $locales = DB::table('locales')
+            ->select('*')
+            ->paginate(10);
+        return view('local.index', compact('locales'));
     }
 
     /**
@@ -34,7 +44,16 @@ class LocalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'direccion' => 'Required',
+            'telefono' => 'Required'
+        ]);
+
+        $local = new Local();
+        $local->direccion = $request->direccion;
+        $local->telefono = $request->telefono;
+        $local->save();
+        return redirect()->route('local.index')->with('status', 'guardado');
     }
 
     /**
@@ -56,7 +75,8 @@ class LocalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $local = Local::findOrFail($id);
+        return view('local.edit', compact('local'));
     }
 
     /**
@@ -68,7 +88,10 @@ class LocalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $local = Local::findOrFail($id);
+        $local->fill($request->all()); //necesita que los name formulario sean iguales a los campos de tabla
+        $local->save();
+        return redirect()->route('local.index')->with('status', 'actualizado');
     }
 
     /**
@@ -79,6 +102,8 @@ class LocalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $local = Local::findOrFail($id); //busque o devuelva pero no muestre error
+        $local->delete();
+        return redirect()->route('local.index')->with('status', 'eliminado');
     }
 }

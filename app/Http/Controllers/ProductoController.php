@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use App\Producto;
+
 class ProductoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        $productos = DB::table('productos')
+            ->select('*')
+            ->paginate(10);
+        return view('producto.index', compact('productos'));
     }
 
     /**
@@ -34,7 +44,14 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'descripcion' => 'Required'
+        ]);
+
+        $producto = new Producto();
+        $producto->descripcion = $request->descripcion;
+        $producto->save();
+        return redirect()->route('producto.index')->with('status', 'guardado');
     }
 
     /**
@@ -56,7 +73,8 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        return view('producto.edit', compact('producto'));
     }
 
     /**
@@ -68,7 +86,10 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        $producto->fill($request->all()); //necesita que los name formulario sean iguales a los campos de tabla
+        $producto->save();
+        return redirect()->route('producto.index')->with('status', 'actualizado');
     }
 
     /**
@@ -79,6 +100,8 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $producto = Producto::findOrFail($id); //busque o devuelva pero no muestre error
+        $producto->delete();
+        return redirect()->route('producto.index')->with('status', 'eliminado');
     }
 }

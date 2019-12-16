@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use App\Asesor;
+
 class AsesorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,10 @@ class AsesorController extends Controller
      */
     public function index()
     {
-        //
+        $asesores = DB::table('asesores')
+            ->select('*')
+            ->paginate(10);
+        return view('asesor.index', compact('asesores'));
     }
 
     /**
@@ -34,7 +44,24 @@ class AsesorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'cedula' => 'Required',
+            'nombres' => 'Required',
+            'apellidos' => 'Required',
+            'direccion' => 'Required',
+            'telefono' => 'Required',
+            'email' => 'Required'
+        ]);
+
+        $asesor = new Asesor();
+        $asesor->cedula = $request->cedula;
+        $asesor->nombres = $request->nombres;
+        $asesor->apellidos = $request->apellidos;
+        $asesor->direccion = $request->direccion;
+        $asesor->telefono = $request->telefono;
+        $asesor->email = $request->email;
+        $asesor->save();
+        return redirect()->route('asesor.index')->with('status', 'guardado');
     }
 
     /**
@@ -56,7 +83,8 @@ class AsesorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $asesor = Asesor::findOrFail($id);
+        return view('asesor.edit', compact('asesor'));
     }
 
     /**
@@ -68,7 +96,10 @@ class AsesorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $asesor = Asesor::findOrFail($id);
+        $asesor->fill($request->all()); //necesita que los name formulario sean iguales a los campos de tabla
+        $asesor->save();
+        return redirect()->route('asesor.index')->with('status', 'actualizado');
     }
 
     /**
@@ -79,6 +110,8 @@ class AsesorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $asesor = Asesor::findOrFail($id); //busque o devuelva pero no muestre error
+        $asesor->delete();
+        return redirect()->route('asesor.index')->with('status', 'eliminado');
     }
 }

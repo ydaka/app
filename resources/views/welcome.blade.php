@@ -1,99 +1,119 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <title>Home</title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Styles -->
+    <style>
+        html,
+        body {
+            background: #ffff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .title {
+            font-size: 84px;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        .links>a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+<body class="fondo">
+
+    <div id="app">
+        @if (Route::has('login'))
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
+            <div class="container">
+                @auth
+                <a class="navbar-brand" href="{{ url('/home') }}">Moviles</a>
+                @else
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto"> </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        </li>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
                         @endif
-                    @endauth
+                        @endauth
+                    </ul>
                 </div>
-            @endif
+            </div>
+        </nav>
+        @endif
+    </div>
 
-            <div class="content">
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
                 <div class="title m-b-md">
-                    Laravel
+                    Moviles
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="#">Productos</a>
+                    <a href="#">Proveedores</a>
+                    <a href="#">Locales</a>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
