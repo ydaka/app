@@ -33,7 +33,7 @@ class AsesorController extends Controller
      */
     public function create()
     {
-        //
+        return view('asesor.create');
     }
 
     /**

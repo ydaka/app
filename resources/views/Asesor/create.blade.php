@@ -13,39 +13,39 @@
 				<form method="POST" action="/asesor" accept-charset="UTF-8" style="display:inline">
 					@csrf			
 					<div class="form-group">
-						<label for="asesor">Cedula</label>
+						<label for="cedula">Cedula</label>
 						<input type="text" class="form-control" name="cedula" id="cedula" value ={{old('cedula')}}>
 						{!!$errors->first('cedula','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
 					</div>
 					
 					<div class="form-group">
-						<label for="asesor">Nombres</label>
-						<input type="text" class="form-control" name="cedula" id="cedula" value ={{old('cedula')}}>
-						{!!$errors->first('cedula','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
+						<label for="nombres">Nombres</label>
+						<input type="text" class="form-control" name="nombres" id="nombres" value ={{old('nombres')}}>
+						{!!$errors->first('nombres','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
 					</div>
 
 					<div class="form-group">
-						<label for="asesor">Apellidos</label>
-						<input type="text" class="form-control" name="cedula" id="cedula" value ={{old('cedula')}}>
-						{!!$errors->first('cedula','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
+						<label for="apellidos">Apellidos</label>
+						<input type="text" class="form-control" name="apellidos" id="apellidos" value ={{old('apellidos')}}>
+						{!!$errors->first('apellidos','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
 					</div>
 
 					<div class="form-group">
-						<label for="asesor">Direccion</label>
-						<input type="text" class="form-control" name="cedula" id="cedula" value ={{old('cedula')}}>
-						{!!$errors->first('cedula','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
+						<label for="direccion">Direccion</label>
+						<input type="text" class="form-control" name="direccion" id="direccion" value ={{old('direccion')}}>
+						{!!$errors->first('direccion','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
 					</div>
 
 					<div class="form-group">
-						<label for="asesor">Telefono</label>
-						<input type="text" class="form-control" name="cedula" id="cedula" value ={{old('cedula')}}>
-						{!!$errors->first('cedula','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
+						<label for="telefono">Telefono</label>
+						<input type="text" class="form-control" name="telefono" id="telefono" value ={{old('telefono')}}>
+						{!!$errors->first('telefono','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
 					</div>
 
 					<div class="form-group">
-						<label for="asesor">Email</label>
-						<input type="text" class="form-control" name="cedula" id="cedula" value ={{old('cedula')}}>
-						{!!$errors->first('cedula','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
+						<label for="email">Email</label>
+						<input type="text" class="form-control" name="email" id="email" value ={{old('email')}}>
+						{!!$errors->first('email','<small class="form-text text-muted"> <div class="alert alert-danger" role="alert">:message </div> </small>')!!}
 					</div>
 
 					<button type="submit" class="btn btn-primary btn-xs fa fa-save" style="margin-left: 10px"> Grabar </button>				
