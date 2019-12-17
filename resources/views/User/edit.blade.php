@@ -8,7 +8,7 @@
 		<div class="col-sm">
 			<div class="card" style="margin-top: 10px;">
 				<div class="card-body">
-					<form method="POST" action="/user/{{$user->cod_usurio}}" accept-charset="UTF-8" style="display:inline">
+					<form method="POST" action="/user/{{$user->cod_usuario}}" accept-charset="UTF-8" style="display:inline">
 						@csrf			
 						<input type="hidden" name="_method" value="PUT">
 						<div class="form-group">
