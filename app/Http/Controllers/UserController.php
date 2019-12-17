@@ -1,13 +1,14 @@
 <?php
-
+//Para pensar
 namespace App\Http\Controllers;
 
+use App\Rol_x_usuario;
+use App\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Asesor;
 
-class AsesorController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
@@ -20,10 +21,10 @@ class AsesorController extends Controller
      */
     public function index()
     {
-        $asesores = DB::table('asesores')
+        $users = DB::table('users')
             ->select('*')
             ->paginate(10);
-        return view('asesor.index', compact('asesores'));
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -33,7 +34,8 @@ class AsesorController extends Controller
      */
     public function create()
     {
-        //
+        $roles_x_usuarios = Rol_x_usuario::orderBy('rol_por_usuario')->get();
+        return view('rol_x_usuario.create',compact('roles_x_usuarios'));
     }
 
     /**
@@ -44,16 +46,8 @@ class AsesorController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'cedula' => 'Required',
-            'nombres' => 'Required',
-            'apellidos' => 'Required',
-            'direccion' => 'Required',
-            'telefono' => 'Required',
-            'email' => 'Required'
-        ]);
 
-        $asesor = new Asesor();
+        $asesor = new User();
         $asesor->cedula = $request->cedula;
         $asesor->nombres = $request->nombres;
         $asesor->apellidos = $request->apellidos;
@@ -83,8 +77,9 @@ class AsesorController extends Controller
      */
     public function edit($id)
     {
-        $asesor = Asesor::findOrFail($id);
-        return view('asesor.edit', compact('asesores'));
+        $user = User::findOrFail($id);
+        $roles_x_usuarios = Rol_x_usuario::all();
+        return view('user.edit', compact('users','roles_x_usuarios'));
     }
 
     /**
@@ -96,10 +91,10 @@ class AsesorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $asesor = Asesor::findOrFail($id);
-        $asesor->fill($request->all()); //necesita que los name formulario sean iguales a los campos de tabla
-        $asesor->save();
-        return redirect()->route('asesor.index')->with('status', 'actualizado');
+        $user = User::findOrFail($id);
+        $user->fill($request->all()); //necesita que los name formulario sean iguales a los campos de tabla
+        $user->save();
+        return redirect()->route('user.index')->with('status', 'actualizado');
     }
 
     /**
@@ -110,8 +105,9 @@ class AsesorController extends Controller
      */
     public function destroy($id)
     {
-        $asesor = Asesor::findOrFail($id); //busque o devuelva pero no muestre error
-        $asesor->delete();
-        return redirect()->route('asesor.index')->with('status', 'eliminado');
+        $user = User::findOrFail($id); //busque o devuelva pero no muestre error
+        $user->delete();
+        return redirect()->route('user.index')->with('status', 'eliminado');
     }
 }
+

@@ -76,7 +76,7 @@ class LocalController extends Controller
     public function edit($id)
     {
         $local = Local::findOrFail($id);
-        return view('local.edit', compact('local'));
+        return view('local.edit', compact('locales'));
     }
 
     /**

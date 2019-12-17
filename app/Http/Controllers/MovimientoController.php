@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Asesor;
+use App\Local;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Movimiento;
+use App\Producto;
+use App\Proveedor;
+use App\User;
 
 class MovimientoController extends Controller
 {
@@ -33,7 +38,16 @@ class MovimientoController extends Controller
      */
     public function create()
     {
-        //
+        $productos = Producto::orderBy('cod_producto')->get();
+        return view('movimiento.create',compact('productos'));
+        $proveedores = Proveedor::orderBy('cod_proveedor')->get();
+        return view('movimiento.create',compact('proveedores'));
+        $users = User::orderBy('cod_usuario')->get();
+        return view('movimiento.create',compact('users'));
+        $asesores = Asesor::orderBy('cod_asesor')->get();
+        return view('movimiento.create',compact('asesores'));
+        $locales = Local::orderBy('cod_local')->get();
+        return view('movimiento.create',compact('locales'));
     }
 
     /**
@@ -63,9 +77,11 @@ class MovimientoController extends Controller
         $movimiento->cod_local_e = $request->cod_local_e;
         $movimiento->fecha_entrada = $request->fecha_entrada;
         $movimiento->imei = $request->imei;
+        //
         $movimiento->cod_asesor_s = $request->cod_asesor_s;
         $movimiento->cod_local_s = $request->cod_local_s;
         $movimiento->fecha_salida     = $request->fecha_salida;
+        //
         $movimiento->observaciones = $request->observaciones;
         $movimiento->save();
         return redirect()->route('movimiento.index')->with('status', 'guardado');
@@ -91,7 +107,12 @@ class MovimientoController extends Controller
     public function edit($id)
     {
         $movimiento = Movimiento::findOrFail($id);
-        return view('movimiento.edit', compact('movimiento'));
+        $productos = Producto::all();
+        $proveedores = Proveedor::all();
+        $users = User::all();
+        $asesores = Asesor::all();
+        $locales = Local::all();
+        return view('movimiento.edit', compact('movimientos','productos','proveedores','users','asesores','locales'));
     }
 
     /**
