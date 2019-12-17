@@ -34,8 +34,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles_x_usuarios = Rol_x_usuario::orderBy('rol_por_usuario')->get();
-        return view('rol_x_usuario.create',compact('roles_x_usuarios'));
+        //$roles_x_usuarios = Rol_x_usuario::orderBy('rol_por_usuario')->get();
+        //return view('rol_x_usuario.create',compact('roles_x_usuarios'));
+       // return view('user.create',compact('user'));
     }
 
     /**
@@ -46,16 +47,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-        $asesor = new User();
-        $asesor->cedula = $request->cedula;
-        $asesor->nombres = $request->nombres;
-        $asesor->apellidos = $request->apellidos;
-        $asesor->direccion = $request->direccion;
-        $asesor->telefono = $request->telefono;
-        $asesor->email = $request->email;
-        $asesor->save();
-        return redirect()->route('asesor.index')->with('status', 'guardado');
+        $user = new User();
+        $user->cedula = $request->cedula;
+        $user->nombres = $request->nombres;
+        $user->apellidos = $request->apellidos;
+        $user->direccion = $request->direccion;
+        $user->telefono = $request->telefono;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+        return redirect()->route('user.index')->with('status', 'guardado');
     }
 
     /**
@@ -78,8 +79,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles_x_usuarios = Rol_x_usuario::all();
-        return view('user.edit', compact('users','roles_x_usuarios'));
+        //$roles_x_usuarios = Rol_x_usuario::all();
+        //return view('user.edit', compact('user','roles_x_usuarios'));
+        return view('user.edit',compact('user'));
     }
 
     /**

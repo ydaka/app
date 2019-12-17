@@ -33,7 +33,7 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        return view('rol.create');
     }
 
     /**

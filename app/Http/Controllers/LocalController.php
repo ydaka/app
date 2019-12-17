@@ -33,7 +33,7 @@ class LocalController extends Controller
      */
     public function create()
     {
-        //
+        return view('local.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class LocalController extends Controller
     public function edit($id)
     {
         $local = Local::findOrFail($id);
-        return view('local.edit', compact('locales'));
+        return view('local.edit', compact('local'));
     }
 
     /**

@@ -84,7 +84,7 @@ class AsesorController extends Controller
     public function edit($id)
     {
         $asesor = Asesor::findOrFail($id);
-        return view('asesor.edit', compact('asesores'));
+        return view('asesor.edit', compact('asesor'));
     }
 
     /**

@@ -127,8 +127,9 @@
                     <a href="{{route('producto.index')}}">Productos</a>
                     <a href="{{route('proveedor.index')}}">Proveedores</a>
                     <a href="{{route('local.index')}}">Locales</a>
+                    <a href="{{route('rol.index')}}">Roles</a>
                     @guest
-                    @if (Route::has('register')) 
+                    @if (Route::has('register'))
                     @endif 
                     @else
                     {{--Si estoy autentificado puedo ver esto--}}

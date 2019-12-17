@@ -87,6 +87,18 @@
                                     Movimientos
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{route('rol.index')}}">
+                                    Roles
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{route('user.index')}}">
+                                    Usuarios
+                                </a>
+                            </li>
                         </ul>
                         {{--xd--}}
                         <li class="nav-item dropdown">
