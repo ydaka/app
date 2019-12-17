@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'direccion' => 'Required',
             'telefono' => 'Required',
             'email' => 'Required', 'unique:users',
-            'contraseña' => 'Required', 'min:8', 'confirmed'
+            'password' => 'Required', 'min:8', 'confirmed'
         ]);
     }
 
@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'direccion' => $data['direccion'],
             'telefono' => $data['telefono'],
             'email' => $data['email'],
-            'contraseña' => Hash::make($data['contraseña']),
+            'password' => Hash::make($data['password']),
         ]);
     }
 }

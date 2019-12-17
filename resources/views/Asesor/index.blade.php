@@ -16,13 +16,16 @@
             <thead>
                 <tr>
                     <th>Codigo</th>
-                    <th>Comuna</th>
-                    <th>Municipio</th>
-                    @can('isAdmin')
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    @can('Administrador')
                     <th class="text-center">
-                        <a href="/comuna/create" class="btn btn-primary btn-sm" id="nuevo" data-toggle="tooltip" title="Nueva Comuna">
+                        <a href="/asesor/create" class="btn btn-primary btn-sm" id="nuevo" data-toggle="tooltip" title="Nuevo Asesor">
                             <i class="fa fa-plus" aria-hidden="true"></i>
-                            Nueva
+                            Nuevo
                         </a>
                     </th>
                     @endcan
@@ -30,29 +33,32 @@
             </thead>
             <tbody>
                 @include('common.success')
-                <!--incluye otras directivas de blade(conficionales)-->
+                <!--incluye otras directivas de blade(condicionales)--> 
 
-                @foreach($comunas as $comuna)
+                @foreach($asesores as $asesor)
                 <tr>
-                    <td>{{$comuna->comu_codi}}</td>
-                    <td>{{$comuna->comu_nomb}}</td>
-                    <td>{{$comuna->muni_nomb}}</td>
-                    @can('isAdmin')
+                    <td>{{$asesor->cod_asesor}}</td>
+                    <td>{{$asesor->nombres}}</td>
+                    <td>{{$asesor->apellidos}}</td>
+                    <td>{{$asesor->direccion}}</td>
+                    <td>{{$asesor->telefono}}</td>
+                    <td>{{$asesor->email}}</td>
+                    @can('Administrador')
                     <td class="text-center">
-                        <form method="POST" action="/comuna/{{$comuna->comu_codi}}" accept-charset="UTF-8" style="display:inline">
+                        <form method="POST" action="/asesor/{{$asesor->cod_asesor}}" accept-charset="UTF-8" style="display:inline">
                             @csrf
                             <!--Generacion de un token para formularios-->
                             <input name="_method" type="hidden" value="DELETE">
                             <button type="submit" class="btn btn-danger btn-sm fa fa-trash" style="margin-right: 10px"> </button>
                         </form>
-                        <a href="/comuna/{{$comuna->comu_codi}}/edit"><i class="btn btn-info btn-sm fa fa-edit"></i></a>
+                        <a href="/asesor/{{$asesor->cod_asesor}}/edit"><i class="btn btn-info btn-sm fa fa-edit"></i></a>
                     </td>
                     @endcan
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        {{$comunas->links()}}
+        {{$asesores->links()}}
     </div>
 </div>
 @endsection

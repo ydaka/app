@@ -74,7 +74,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
                 @auth
-                <a class="navbar-brand" href="{{ url('/home') }}">Moviles</a>
+                <a class="navbar-brand" href="{{ url('/home') }}">Menu</a>
                 @else
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -83,17 +83,35 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto"> </ul>
                     <ul class="navbar-nav">
+                        @guest
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">Iniciar</a>
                         </li>
                         @if (Route::has('register'))
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            <a class="nav-link" href="{{ route('register') }}">Registrar</a>
                         </li>
                         @endif
-                        @endauth
+                        {{--Agregado--}}
+                        @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link active dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                                </form>
+                            </div>
+                        </li>
+                        @endguest
                     </ul>
                 </div>
+                @endauth
             </div>
         </nav>
         @endif
@@ -105,11 +123,19 @@
                 <div class="title m-b-md">
                     Moviles
                 </div>
-
                 <div class="links">
-                    <a href="#">Productos</a>
-                    <a href="#">Proveedores</a>
-                    <a href="#">Locales</a>
+                    <a href="{{route('producto.index')}}">Productos</a>
+                    <a href="{{route('proveedor.index')}}">Proveedores</a>
+                    <a href="{{route('local.index')}}">Locales</a>
+                    @guest
+                    @if (Route::has('register')) 
+                    @endif 
+                    @else
+                    {{--Si estoy autentificado puedo ver esto--}}
+                    <a href="{{route('asesor.index')}}">Asesores</a>
+                    <a href="{{route('movimiento.index')}}">Movimientos</a>
+                    {{--xd--}}
+                    @endguest
                 </div>
             </div>
         </div>
